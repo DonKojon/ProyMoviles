@@ -1,0 +1,43 @@
+<div class="container mt-5">
+  <h2>Lista de Proveedores</h2>
+
+  <div class="card mb-4">
+    <div class="card-header">
+      <h3>Agregar Proveedor</h3>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="agregarProveedor()" #proveedorForm="ngForm">
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input type="text" id="nombre" class="form-control" [(ngModel)]="nuevoProveedor.name" name="name" required>
+        </div>
+        <div class="mb-3">
+          <label for="empresa" class="form-label">Empresa</label>
+          <input type="text" id="empresa" class="form-control" [(ngModel)]="nuevoProveedor.company" name="company" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Agregar Proveedor</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <h3>Nuestros Proveedores</h3>
+    </div>
+    <div class="card-body">
+      <div *ngIf="suppliers.length === 0" class="alert alert-info">No hay proveedores registrados.</div>
+      <ul class="list-group" *ngIf="suppliers.length > 0">
+        <li class="list-group-item mb-3 d-flex justify-content-between align-items-center" *ngFor="let supplier of suppliers">
+          <div class="flex-grow-1">
+            <div class="d-flex w-100 justify-content-between">
+              <h5 class="mb-1">{{ supplier.name }}</h5>
+              <small class="text-muted">ID: {{ supplier.id }}</small>
+            </div>
+            <p class="mb-1"><strong>Empresa:</strong> {{ supplier.company }}</p>
+          </div>
+          <button class="btn btn-danger btn-sm ms-3" (click)="eliminarProveedor(supplier.id!)">Eliminar</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

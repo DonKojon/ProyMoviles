@@ -1,0 +1,4 @@
+<app-navbar *ngIf="showNavbar" (isCollapsedChange)="onNavbarCollapsedChange($event)"></app-navbar>
+<div class="content-area" [class.shifted]="showNavbar && !isNavbarCollapsed">
+  <router-outlet />
+</div>

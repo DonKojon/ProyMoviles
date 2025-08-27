@@ -1,0 +1,21 @@
+body {
+    background-color: #f8f9fa;
+}
+.jumbotron {
+    background-color: #fff;
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+    border-radius: .3rem;
+}
+.hero-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh; /* Ocupa al menos el 80% de la altura de la ventana */
+    text-align: center;
+}
+.footer {
+    padding: 1rem;
+    text-align: center;
+    color: #6c757d;
+}

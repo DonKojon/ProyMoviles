@@ -1,0 +1,65 @@
+<div class="container mt-5">
+  <h2>Tablero de Pedidos</h2>
+
+  <div class="row mt-4">
+
+    <!-- Pedidos Pendientes -->
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 border-warning">
+        <div class="card-header bg-warning text-white">
+          <h4 class="mb-0">Pedidos Pendientes ({{ pendingOrders.length }})</h4>
+        </div>
+        <div class="card-body">
+          <div *ngIf="pendingOrders.length === 0" class="alert alert-info">No hay pedidos pendientes.</div>
+          <ul class="list-group list-group-flush" *ngIf="pendingOrders.length > 0">
+            <li class="list-group-item" *ngFor="let order of pendingOrders">
+              <strong>{{ order.productName }}</strong>
+              <br>
+              Cantidad: {{ order.quantity }} | Precio: {{ order.price | currency:'USD':'symbol':'1.2-2' }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pedidos Entregados -->
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 border-success">
+        <div class="card-header bg-success text-white">
+          <h4 class="mb-0">Pedidos Entregados ({{ deliveredOrders.length }})</h4>
+        </div>
+        <div class="card-body">
+          <div *ngIf="deliveredOrders.length === 0" class="alert alert-info">No hay pedidos entregados.</div>
+          <ul class="list-group list-group-flush" *ngIf="deliveredOrders.length > 0">
+            <li class="list-group-item" *ngFor="let order of deliveredOrders">
+              <strong>{{ order.productName }}</strong>
+              <br>
+              Cantidad: {{ order.quantity }} | Precio: {{ order.price | currency:'USD':'symbol':'1.2-2' }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pedidos Cancelados -->
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 border-danger">
+        <div class="card-header bg-danger text-white">
+          <h4 class="mb-0">Pedidos Cancelados ({{ cancelledOrders.length }})</h4>
+        </div>
+        <div class="card-body">
+          <div *ngIf="cancelledOrders.length === 0" class="alert alert-info">No hay pedidos cancelados.</div>
+          <ul class="list-group list-group-flush" *ngIf="cancelledOrders.length > 0">
+            <li class="list-group-item" *ngFor="let order of cancelledOrders">
+              <strong>{{ order.productName }}</strong>
+              <br>
+              Cantidad: {{ order.quantity }} | Precio: {{ order.price | currency:'USD':'symbol':'1.2-2' }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

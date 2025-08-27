@@ -1,0 +1,9 @@
+.content-area {
+  /* margin-left: 60px;  Eliminado para superposición del navbar */
+  transition: margin-left 0.3s ease-in-out;
+  padding-top: 72px; /* Espacio para el botón hamburguesa */
+}
+
+.content-area.shifted {
+  /* margin-left: 260px;  Eliminado para superposición del navbar */
+}

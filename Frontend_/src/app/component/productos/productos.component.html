@@ -1,0 +1,128 @@
+<div class="container mt-4">
+    <h1 class="mb-4">Gestión de Productos</h1>
+
+    <!-- Formulario para agregar/editar productos -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h3>{{ modoEdicion ? 'Editar Producto' : 'Agregar Nuevo Producto' }}</h3>
+        </div>
+        <div class="card-body">
+            <form (ngSubmit)="modoEdicion ? actualizarProducto() : agregarProducto()">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="name" class="form-label">Nombre del Producto</label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            id="name" 
+                            [ngModel]="modoEdicion ? editandoProducto?.name : nuevoProducto.name"
+                            (ngModelChange)="modoEdicion ? (editandoProducto!.name = $event) : (nuevoProducto.name = $event)"
+                            name="name" 
+                            required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="price" class="form-label">Precio</label>
+                        <input 
+                            type="number" 
+                            class="form-control" 
+                            id="price" 
+                            [ngModel]="modoEdicion ? editandoProducto?.price : nuevoProducto.price"
+                            (ngModelChange)="modoEdicion ? (editandoProducto!.price = $event) : (nuevoProducto.price = $event)"
+                            name="price" 
+                            step="0.01" 
+                            required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="description" class="form-label">Descripción</label>
+                        <textarea 
+                            class="form-control" 
+                            id="description" 
+                            [ngModel]="modoEdicion ? editandoProducto?.description : nuevoProducto.description"
+                            (ngModelChange)="modoEdicion ? (editandoProducto!.description = $event) : (nuevoProducto.description = $event)"
+                            name="description" 
+                            rows="3"></textarea>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="stock" class="form-label">Stock</label>
+                        <input 
+                            type="number" 
+                            class="form-control" 
+                            id="stock" 
+                            [ngModel]="modoEdicion ? editandoProducto?.stock : nuevoProducto.stock"
+                            (ngModelChange)="modoEdicion ? (editandoProducto!.stock = $event) : (nuevoProducto.stock = $event)"
+                            name="stock" 
+                            required>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="proveedor" class="form-label">Proveedor</label>
+                        <select class="form-select" id="proveedor"
+                            [ngModel]="modoEdicion ? editandoProducto?.supplier_id : nuevoProducto.supplier_id"
+                            (ngModelChange)="modoEdicion ? (editandoProducto!.supplier_id = $event) : (nuevoProducto.supplier_id = $event)"
+                            name="supplier_id" required>
+                            <option [ngValue]="undefined">Seleccione un proveedor</option>
+                            <option *ngFor="let proveedor of proveedores" [ngValue]="proveedor.id">{{ proveedor.name }} ({{ proveedor.company }})</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">
+                        {{ modoEdicion ? 'Actualizar' : 'Agregar' }} Producto
+                    </button>
+                    <button *ngIf="modoEdicion" type="button" class="btn btn-secondary" (click)="cancelarEdicion()">
+                        Cancelar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Lista de productos -->
+    <div class="card">
+        <div class="card-header">
+            <h3>Lista de Productos</h3>
+        </div>
+        <div class="card-body">
+            <div *ngIf="productos.length === 0" class="text-center py-4">
+                <p class="text-muted">No hay productos registrados.</p>
+            </div>
+            <div *ngIf="productos.length > 0" class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th>Proveedor</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let producto of productos">
+                            <td>{{ producto.id }}</td>
+                            <td>{{ producto.name }}</td>
+                            <td>{{ producto.description }}</td>
+                            <td>${{ producto.price }}</td>
+                            <td>{{ producto.stock }}</td>
+                            <td>
+                                <span *ngIf="producto.supplier">{{ producto.supplier.name }} ({{ producto.supplier.company }})</span>
+                                <span *ngIf="!producto.supplier">-</span>
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-warning me-2" (click)="editarProducto(producto)">
+                                    Editar
+                                </button>
+                                <button class="btn btn-sm btn-danger" (click)="eliminarProducto(producto.id!)">
+                                    Eliminar
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
